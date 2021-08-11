@@ -1,4 +1,4 @@
-package br.com.zupacademy.giovannimoratto.transacao;
+package br.com.zupacademy.giovannimoratto.desafiotransacao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
