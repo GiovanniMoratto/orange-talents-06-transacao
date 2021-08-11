@@ -1,7 +1,6 @@
 package br.com.zupacademy.giovannimoratto.desafiotransacao.messages;
 
 import br.com.zupacademy.giovannimoratto.desafiotransacao.consulta.TransacaoModel;
-import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -51,15 +50,15 @@ public class TransactionMessage {
     }
 
     /* Methods */
-    public String getEstabelecimentoNome(Map <String, String> estabelecimento) {
+    public String getEstabNome(Map <String, String> estabelecimento) {
         return (String) estabelecimento.values().toArray()[0];
     }
 
-    public String getEstabelecimentoCidade(Map <String, String> estabelecimento) {
+    public String getEstabCidade(Map <String, String> estabelecimento) {
         return (String) estabelecimento.values().toArray()[1];
     }
 
-    public String getEstabelecimentoEndereco(Map <String, String> estabelecimento) {
+    public String getEstabEndereco(Map <String, String> estabelecimento) {
         return (String) estabelecimento.values().toArray()[2];
     }
 
@@ -75,11 +74,11 @@ public class TransactionMessage {
         return new TransacaoModel(
                 this.id,
                 this.valor,
-                getEstabelecimentoNome(this.estabelecimento),
-                getEstabelecimentoCidade(this.estabelecimento),
-                getEstabelecimentoEndereco(this.estabelecimento),
+                getEstabNome(this.estabelecimento),
+                getEstabCidade(this.estabelecimento),
+                getEstabEndereco(this.estabelecimento),
                 getCartaoId(this.cartao),
-                getEstabelecimentoNome(this.cartao),
+                getCartaoEmail(this.cartao),
                 this.efetivadaEm
         );
     }

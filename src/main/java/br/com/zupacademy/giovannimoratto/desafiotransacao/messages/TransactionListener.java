@@ -27,10 +27,9 @@ public class TransactionListener {
         logger.info("E-mail: {}", message.getCartaoEmail(message.getCartao()));
         logger.info("Valor: {}", message.getValor());
         logger.info("Efetuado em:  {}", message.getEfetivadaEm());
-        logger.info("Nome do estabelecimento: {}", message.getEstabelecimentoNome(message.getEstabelecimento()));
-        logger.info("Cidade do estabelecimento: {}", message.getEstabelecimentoCidade(message.getEstabelecimento()));
-        logger.info("Endereço do estabelecimento: {}",
-                message.getEstabelecimentoEndereco(message.getEstabelecimento()));
+        logger.info("Nome do estabelecimento: {}", message.getEstabNome(message.getEstabelecimento()));
+        logger.info("Cidade do estabelecimento: {}", message.getEstabCidade(message.getEstabelecimento()));
+        logger.info("Endereço do estabelecimento: {}", message.getEstabEndereco(message.getEstabelecimento()));
         repository.save(message.ToModel());
     }
 
