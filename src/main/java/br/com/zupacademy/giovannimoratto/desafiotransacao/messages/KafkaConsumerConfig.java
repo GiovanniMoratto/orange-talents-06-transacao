@@ -48,9 +48,9 @@ public class KafkaConsumerConfig {
         properties.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         properties.put(
-                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getConsumer().getKeyDeserializer());
         properties.put(
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getConsumer().getValueDeserializer());
         properties.put(
                 ConsumerConfig.CLIENT_ID_CONFIG, kafkaProperties.getConsumer().getClientId());
         properties.put(

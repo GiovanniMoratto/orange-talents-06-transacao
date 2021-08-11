@@ -1,7 +1,9 @@
 package br.com.zupacademy.giovannimoratto.desafiotransacao.messages;
 
+import br.com.zupacademy.giovannimoratto.desafiotransacao.consulta.TransacaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,9 @@ public class TransactionListener {
 
     private final Logger logger = LoggerFactory.getLogger(TransactionListener.class);
 
+    @Autowired
+    private TransacaoRepository repository;
+
     @KafkaListener(topics = "${spring.kafka.topic.transactions}")
     public void ouvir(TransactionMessage message) {
         logger.info("----- Nova Transação! -----");
@@ -24,9 +29,9 @@ public class TransactionListener {
         logger.info("Efetuado em:  {}", message.getEfetivadaEm());
         logger.info("Nome do estabelecimento: {}", message.getEstabelecimentoNome(message.getEstabelecimento()));
         logger.info("Cidade do estabelecimento: {}", message.getEstabelecimentoCidade(message.getEstabelecimento()));
-        logger.info(
-                "Endereço do estabelecimento: {}",
+        logger.info("Endereço do estabelecimento: {}",
                 message.getEstabelecimentoEndereco(message.getEstabelecimento()));
+        repository.save(message.ToModel());
     }
 
 }

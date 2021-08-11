@@ -1,7 +1,11 @@
 package br.com.zupacademy.giovannimoratto.desafiotransacao.messages;
 
+import br.com.zupacademy.giovannimoratto.desafiotransacao.consulta.TransacaoModel;
+import org.springframework.data.domain.Page;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,15 +35,22 @@ public class TransactionMessage {
         this.efetivadaEm = efetivadaEm;
     }
 
+    public TransactionMessage(TransacaoModel transacao) {
+        this.id = transacao.getCodigoTransacao();
+        this.valor = transacao.getValor();
+        Map <String, String> estabelecimento = new HashMap <>();
+        estabelecimento.put("nome", transacao.getEstabelecimentoNome());
+        estabelecimento.put("cidade", transacao.getEstabelecimentoCidade());
+        estabelecimento.put("endereco", transacao.getEstabelecimentoEndereco());
+        this.estabelecimento = estabelecimento;
+        Map <String, String> cartao = new HashMap <>();
+        cartao.put("id", transacao.getNumeroCartao());
+        cartao.put("email", transacao.getEmail());
+        this.cartao = cartao;
+        this.efetivadaEm = transacao.getEfetivadaEm();
+    }
+
     /* Methods */
-    public String getCartaoId(Map <String, String> cartao) {
-        return (String) cartao.values().toArray()[0];
-    }
-
-    public String getCartaoEmail(Map <String, String> cartao) {
-        return (String) cartao.values().toArray()[1];
-    }
-
     public String getEstabelecimentoNome(Map <String, String> estabelecimento) {
         return (String) estabelecimento.values().toArray()[0];
     }
@@ -50,6 +61,27 @@ public class TransactionMessage {
 
     public String getEstabelecimentoEndereco(Map <String, String> estabelecimento) {
         return (String) estabelecimento.values().toArray()[2];
+    }
+
+    public String getCartaoId(Map <String, String> cartao) {
+        return (String) cartao.values().toArray()[0];
+    }
+
+    public String getCartaoEmail(Map <String, String> cartao) {
+        return (String) cartao.values().toArray()[1];
+    }
+
+    public TransacaoModel ToModel() {
+        return new TransacaoModel(
+                this.id,
+                this.valor,
+                getEstabelecimentoNome(this.estabelecimento),
+                getEstabelecimentoCidade(this.estabelecimento),
+                getEstabelecimentoEndereco(this.estabelecimento),
+                getCartaoId(this.cartao),
+                getEstabelecimentoNome(this.cartao),
+                this.efetivadaEm
+        );
     }
 
     /* Getters */
